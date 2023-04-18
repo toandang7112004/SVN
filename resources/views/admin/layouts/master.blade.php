@@ -47,7 +47,8 @@
             @include('admin.includes.header')
 
            {{-- Dashboard --}}
-           @include('admin.includes.dashboard')
+           {{-- @include('admin.includes.dashboard') --}}
+           @yield('content')
            
             <!-- Footer Start -->
             @include('admin.includes.footer')
