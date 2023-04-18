@@ -1,4 +1,5 @@
- <!-- Sale & Revenue Start -->
+ @extends('admin.layouts.master')
+ @section('content')
  <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
         <div class="col-sm-6 col-xl-3">
@@ -39,10 +40,6 @@
         </div>
     </div>
 </div>
-<!-- Sale & Revenue End -->
-
-
-<!-- Sales Chart Start -->
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
         <div class="col-sm-12 col-xl-6">
@@ -65,4 +62,4 @@
         </div>
     </div>
 </div>
-<!-- Sales Chart End -->
+@endsection
