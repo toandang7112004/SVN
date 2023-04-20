@@ -49,7 +49,6 @@
            {{-- Dashboard --}}
            {{-- @include('admin.includes.dashboard') --}}
            @yield('content')
-           
             <!-- Footer Start -->
             @include('admin.includes.footer')
         </div>
