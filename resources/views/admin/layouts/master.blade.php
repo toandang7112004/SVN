@@ -29,6 +29,8 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
+    {{-- sweetalert --}}
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
 </head>
 
 <body>
@@ -49,7 +51,6 @@
            {{-- Dashboard --}}
            {{-- @include('admin.includes.dashboard') --}}
            @yield('content')
-           
             <!-- Footer Start -->
             @include('admin.includes.footer')
         </div>
