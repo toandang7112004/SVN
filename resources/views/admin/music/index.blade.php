@@ -11,15 +11,17 @@
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                         <tr>
-                            <th width="30%">STT</th>
+                            <th width="20%">STT</th>
                             <th width="40%">Tên</th>
-                            <th width="30%">Action</th>
+                            <th width="20%">Thể loại</th>
+                            <th width="20%">Action</th>
                         </tr>
                     </thead>
-                    @foreach ($cs as $key => $zone)
+                    @foreach ($results as $key => $result)
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $zone->name }}</td>
+                            <td>{{ $result->title }}</td>
+                            <td></td>
                             <td>
                                 <form method="post" action="">
                                     @method('DELETE')
@@ -35,7 +37,7 @@
                 </table>
             </div>
             <br>
-            {{-- <p>{{ $zones->onEachSide(10)->links() }}</p> --}}
+            <p>{{ $results->onEachSide(10)->links() }}</p>
         </div>
     </div>
 @endsection

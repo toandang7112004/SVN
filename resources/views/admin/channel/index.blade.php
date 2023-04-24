@@ -11,22 +11,26 @@
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
                         <tr>
-                            <th width="30%">STT</th>
+                            <th width="10%">STT</th>
                             <th width="40%">Tên</th>
-                            <th width="30%">Action</th>
+                            <th width="20%">IP</th>
+                            <th width="20%">Port</th>
+                            <th width="10%">Action</th>
                         </tr>
                     </thead>
-                    @foreach ($cs as $key => $zone)
+                    @foreach ($results as $key => $result)
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $zone->name }}</td>
+                            <td>{{ $result->title }}</td>
+                            <td></td>
+                            <td></td>
                             <td>
                                 <form method="post" action="">
                                     @method('DELETE')
                                     @csrf
                                     <button onclick="return confirm('Bạn có chắc chắn xóa không?');"
                                     class="btn btn-sm btn-primary">Xóa</button>
-                                    <a href="" class="btn btn-sm btn-primary">Sửa</a>
+                                    <a href="{{ route('channel.form_update',$result->id) }}" class="btn btn-sm btn-primary">Sửa</a>
                                 </form>
                             </td>
                         </tr>
@@ -35,7 +39,7 @@
                 </table>
             </div>
             <br>
-            {{-- <p>{{ $zones->onEachSide(10)->links() }}</p> --}}
+            <p>{{ $results->onEachSide(10)->links() }}</p>
         </div>
     </div>
 @endsection
