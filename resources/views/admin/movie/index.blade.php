@@ -16,10 +16,10 @@
                             <th width="30%">Action</th>
                         </tr>
                     </thead>
-                    @foreach ($cs as $key => $zone)
+                    @foreach ($results as $key => $result)
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $zone->name }}</td>
+                            <td>{{ $result->title }}</td>
                             <td>
                                 <form method="post" action="">
                                     @method('DELETE')
@@ -35,7 +35,7 @@
                 </table>
             </div>
             <br>
-            {{-- <p>{{ $zones->onEachSide(10)->links() }}</p> --}}
+            <p>{{ $results->onEachSide(10)->links() }}</p>
         </div>
     </div>
 @endsection
