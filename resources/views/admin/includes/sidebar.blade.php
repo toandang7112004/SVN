@@ -19,13 +19,14 @@
                     @endif
                 </div>
             </div>
+            @if (Auth::user()->type == 1 || Auth::user()->type == 2)
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                         class="far fa-file-alt me-2"></i>Hotel Info</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="" class="dropdown-item">Danh sách</a>
+                    <a href="{{ route('hotel_info.index') }}" class="dropdown-item">Danh sách</a>
                     <hr>
-                    <a href="" class="dropdown-item">Thêm mới</a>
+                    <a href="{{ route('hotel_info.create') }}" class="dropdown-item">Thêm mới</a>
                 </div>
             </div>
             <div class="nav-item dropdown">
@@ -52,7 +53,7 @@
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="{{ route('service.index') }}" class="dropdown-item">Danh sách</a>
                     <hr>
-                    <a href="" class="dropdown-item">Thêm mới</a>
+                    <a href="{{ route('service.create') }}" class="dropdown-item">Thêm mới</a>
                 </div>
             </div>
             <div class="nav-item dropdown">
@@ -73,15 +74,18 @@
                     <a href="{{ route('music.create') }}" class="dropdown-item">Thêm mới</a>
                 </div>
             </div>
+            @endif
+            @if (Auth::user()->type == 1)
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                         class="far fa-file-alt me-2"></i>User</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="" class="dropdown-item">Danh sách</a>
+                    <a href="{{ route('user.list') }}" class="dropdown-item">Danh sách</a>
                     <hr>
-                    <a href="" class="dropdown-item">Thêm mới</a>
+                    <a href="{{ route('user.create') }}" class="dropdown-item">Thêm mới</a>
                 </div>
             </div>
+            @endif
         </div>
     </nav>
 </div>

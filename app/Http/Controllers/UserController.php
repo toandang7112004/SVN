@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
 use App\Models\Zone;
 use Dotenv\Validator;
+use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
@@ -16,10 +17,10 @@ class UserController extends Controller
     public function index()
     {
         if (Auth::check()) {
-        $zones = Zone::where('status', '=', '1')->where('id', '!=', '1')->get();
-        return view('admin.includes.dashboard',compact('zones'));
+            $zones = Zone::where('status', '=', '1')->where('id', '!=', '1')->get();
+            return view('admin.includes.dashboard',compact('zones'));
         }else{
-            echo 1 ;
+            return redirect()->route('admin.login');
         }
     }
     public function profiles($id)
@@ -56,7 +57,63 @@ class UserController extends Controller
             return redirect()->route('admin.login');
         }
     }
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('admin.login');
+    }
     public function form_change_password($id)
     {
+        $user = User::find($id);
+        return view('admin.user.changepassword',compact('user'));
+    }
+    public function post_form_change_password( $id , Request $request ){
+        
+    }
+    public function list(){
+        $users = User::paginate(10);
+        return view('admin.user.list',compact('users'));
+    }
+    public function create(){
+        return view('admin.user.create');
+    }
+    public function store( Request $request ){
+        $repeat = 0 ;
+        $users = User::all();
+        foreach($users as $user){
+            if( $user->username == $request->username || $user->email == $request->email){
+                $repeat = 1 ;
+            }
+        }
+        if( $repeat == 0 ){
+            $user = new User();
+            $user->username = $request->username;
+            $user->name = $request->name;
+            $user->phone = $request->phone;
+            $user->email = $request->email;
+            $user->type = $request->type;
+            // $user->password = $request->password;
+            // $user->confirm_password = $request->confirm_password;
+            if ($request->password == $request->confirm_password ) {
+                $user->password = Hash::make($request->password);
+                $user->save();
+                toast("đăng kí tài khoản thành công", 'success', 'top-right');
+                return redirect()->route('user.list');
+            }else{
+                toast("Xác thực mật khẩu không đúng", 'error', 'top-right');
+                return redirect()->route('user.create');
+            }
+        }else{
+            toast("Tên đăng nhập hoặc email bị trùng", 'error', 'top-right');
+            return redirect()->route('user.create');
+        }
+    }
+    public function edit( $id ){
+        $users = User::find($id);
+        return view('admin.user.edit',compact('users'));
+    }
+    public function delete( $id ){
+        $users = User::find($id)->delete();
+        toast("Xóa người dùng thành công", 'success', 'top-right');
+        return redirect()->route('user.list');
     }
 }

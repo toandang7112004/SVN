@@ -14,9 +14,27 @@
                             </ul>
                         </header>
                         <div class="panel-body">
-                            <form class="form-horizontal" id="Category" method="post" action="{{ route('movie.store') }}" enctype="multipart/form-data">
+                            <form class="form-horizontal" id="Category" method="post" action="{{ route('service.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="tab-content">
+                                    <div id="home" class="tab-pane">
+                                        <hr>
+                                        <div class="form-group">
+                                            <label for="parent_id" class="col-lg-2 col-sm-2 control-label">Danh Mục</label>
+                                            <div class="col-lg-12">
+                                                <select class="form-control" name="id_category">
+                                                    @if (isset($cate))
+                                                        @foreach ($cate as $c)
+                                                            @if ($c->id == 10)
+                                                                <option selected value="{{ $c->id }}">
+                                                                    {{ $c->name }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div id="about" class="tab-pane active">
                                         <div class="form-group">
                                             <label for="name" class="col-lg-2 col-sm-2 control-label">Tên</label>
@@ -27,28 +45,21 @@
                                         </div>
                                         <hr>
                                         <div class="form-group">
-                                            <label for="parent_id" class="col-lg-2 col-sm-2 control-label">Danh Mục</label>
+                                            <label for="image" class="col-lg-2 col-sm-2 control-label"> Avatar </label>
                                             <div class="col-lg-12">
-                                                <select class="form-control" name="id_category">
-                                                    @if(isset($cate))
-                                                        @foreach($cate as $c)
-                                                                @if($c->id == 15)
-                                                                    <option selected value="{{$c->id}}">{{$c->name}}</option>
-                                                             @endif
-                                                        @endforeach
-                                                    @endif
-                                                 </select>
+                                                <input readonly type="file" name="image" class="form-control"
+                                                    id="image" value="">
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="form-group">
-                                            <label for="image" class="col-lg-2 col-sm-2 control-label"> Image </label>
+                                            <label for="detail" class="col-lg-2 col-sm-2 control-label"> Image/Video
+                                            </label>
                                             <div class="col-lg-12">
-                                                <input readonly type="file" name="image" class="form-control"
-                                                    id="image" value="Chọn ảnh">
+                                                <input readonly type="file" name="detail" class="form-control"
+                                                    id="detail" value="">
                                             </div>
                                         </div>
-                                        <br>
                                         <hr>
                                     </div>
                                     <div class="form-group">

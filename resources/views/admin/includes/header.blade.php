@@ -12,13 +12,12 @@
     <div class="navbar-nav align-items-center ms-auto">
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                 @if (isset(Auth::user()->name))
                     <span class="d-none d-lg-inline-flex">{{ Auth::user()->name }}</span>
                 @endif
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                <a href="{{ route('admin.login') }}" class="dropdown-item">Log Out</a>
+                <a href="{{ route('admin.logout') }}" class="dropdown-item">Log Out</a>
             </div>
         </div>
     </div>
