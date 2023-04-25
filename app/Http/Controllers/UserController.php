@@ -15,8 +15,12 @@ class UserController extends Controller
 {
     public function index()
     {
+        if (Auth::check()) {
         $zones = Zone::where('status', '=', '1')->where('id', '!=', '1')->get();
         return view('admin.includes.dashboard',compact('zones'));
+        }else{
+            echo 1 ;
+        }
     }
     public function profiles($id)
     {

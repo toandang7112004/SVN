@@ -22,15 +22,15 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $result->title }}</td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $result->meta_description }}</td>
+                            <td>{{ $result->meta_keyword }}</td>
                             <td>
-                                <form method="post" action="">
+                                <form method="post" action="{{ route('channel.delete',[$result->id]) }}">
                                     @method('DELETE')
                                     @csrf
                                     <button onclick="return confirm('Bạn có chắc chắn xóa không?');"
                                     class="btn btn-sm btn-primary">Xóa</button>
-                                    <a href="{{ route('channel.form_update',$result->id) }}" class="btn btn-sm btn-primary">Sửa</a>
+                                    <a href="{{ route('channel.edit',[$result->id]) }}" class="btn btn-sm btn-primary">Sửa</a>
                                 </form>
                             </td>
                         </tr>
