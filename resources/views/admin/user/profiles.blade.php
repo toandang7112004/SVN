@@ -25,16 +25,6 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="form-group">
-                            <div class="col-lg-12">
-                                <label for="image" class="col-lg-2 col-sm-2 control-label">Avatar</label>
-                                <input readonly type="text" name="avatar" class="form-control" id="image"
-                                    value="{{ $user->avatar }}">
-                                <input type="button" formtarget="image" class="btn-file" value="Duyệt tìm" />
-                                <input type="button" formtarget="image" class="btn-view" value="Xem trước" />
-                            </div>
-                        </div>
-                        <hr>
                        
                         <div class="form-group">
                             <div class="col-lg-12">
@@ -61,7 +51,7 @@
                         </div>
                         <hr>
                         <div class="form-group">
-                            <div class="col-lg-offset-10 col-lg-10">
+                            <div class="col-lg-offset-12 col-lg-12">
                                 <button type="submit" class="btn btn-danger">Xác nhận</button>
                             </div>
                         </div>

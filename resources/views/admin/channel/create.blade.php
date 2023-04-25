@@ -4,15 +4,12 @@
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary text-center rounded p-4">
             <section class="panel">
-                <header class="panel-heading">
-                    <b>Thêm Bài Viết</b><br>
-                </header>
                 <div class="panel-body">
                     <section class="panel">
                         <header class="panel-heading tab-bg-dark-navy-blue ">
                             <ul class="nav nav-tabs">
                                 <li class="">
-                                    <a data-toggle="tab" href="#about"><b>Thông Tin</b></a>
+                                    <a data-toggle="tab" href="#about"><b>Thêm Bài Viết</b></a>
                                 </li>
                             </ul>
                         </header>

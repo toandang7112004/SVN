@@ -16,24 +16,28 @@
                              <input class="form-control" id="username" name="username" type="text" value="{{$user->name}}" />
                          </div>
                      </div>
+                     <br>
                      <div class="form-group ">
                           <label for="oldpassword" class="control-label col-lg-2">Mật khẩu cũ</label>
                           <div class="col-lg-12">
                               <input class="form-control" id="oldpassword" name="oldpassword" type="password" />
                           </div>
                       </div>
+                      <br>
                      <div class="form-group ">
                          <label for="password" class="control-label col-lg-2">Mật khẩu mới</label>
                          <div class="col-lg-12">
                              <input class="form-control " id="password" name="password" type="password" />
                          </div>
                      </div>
+                     <br>
                      <div class="form-group ">
                          <label for="confirm_password" class="control-label col-lg-2">Nhập lại mật khẩu</label>
                          <div class="col-lg-12">
                              <input class="form-control " id="confirm_password" name="confirm_password" type="password" />
                          </div>
                      </div>
+                     <br>
                      <div class="form-group">
                          <div class="col-lg-offset-12 col-lg-12">
                              <button class="btn btn-danger" type="submit">Xác Nhận</button>

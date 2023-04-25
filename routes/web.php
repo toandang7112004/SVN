@@ -9,6 +9,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\ZoneController;
+use App\Http\Controllers\HotelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,16 +22,17 @@ use App\Http\Controllers\ZoneController;
 |
 */
 
-// Route::prefix('/')->middleware(['auth', 'prevent-back-history'])->group(function () {
-    Route::prefix('admin')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('admin.index');
-        Route::get('/profiles/{id}', [UserController::class, 'profiles'])->name('admin.profiles');
-        Route::post('update/profiles/{id}', [UserController::class, 'updateprofiles'])->name('admin.update.profiles');
-        Route::get('/formlogin', [UserController::class, 'formlogin'])->name('admin.login');
-        Route::post('/postlogin', [UserController::class, 'login'])->name('admin.postlogin');
-        Route::get('/form_change_password/{id}', [UserController::class, 'form_change_password'])->name('form_change_password');
-        Route::post('/post/form_change_password/{id}', [UserController::class, 'post_form_change_password'])->name('post_form_change_password');
-    });
+Route::get('/formlogin', [UserController::class, 'formlogin'])->name('admin.login');
+Route::post('/postlogin', [UserController::class, 'login'])->name('admin.postlogin');
+Route::prefix('/')->middleware(['auth', 'prevent-back-history'])->group(function () {
+    // Route::prefix('admin')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('admin.index');
+    Route::get('/profiles/{id}', [UserController::class, 'profiles'])->name('admin.profiles');
+    Route::post('update/profiles/{id}', [UserController::class, 'updateprofiles'])->name('admin.update.profiles');
+    Route::get('/logout', [UserController::class, 'logout'])->name('admin.logout');
+    Route::get('/form_change_password/{id}', [UserController::class, 'form_change_password'])->name('form_change_password');
+    Route::post('/post/form_change_password/{id}', [UserController::class, 'post_form_change_password'])->name('post_form_change_password');
+    // });
     Route::prefix('category')->group(function () {
         Route::get('/index', [CategoryController::class, 'index'])->name('category.index');
         Route::get('/forminsertcate', [CategoryController::class, 'forminsertcate'])->name('category.forminsertcate');
@@ -58,6 +60,11 @@ use App\Http\Controllers\ZoneController;
     });
     Route::prefix('service')->group(function () {
         Route::get('/index', [ServiceController::class, 'index'])->name('service.index');
+        Route::get('/create', [ServiceController::class, 'create'])->name('service.create');
+        Route::post('/store', [ServiceController::class, 'store'])->name('service.store');
+        Route::get('/edit/{id}', [ServiceController::class, 'edit'])->name('service.edit');
+        Route::put('/update/{id}', [ServiceController::class, 'update'])->name('service.update');
+        Route::delete('/delete/{id}', [ServiceController::class, 'delete'])->name('service.delete');
     });
     Route::prefix('movie')->group(function () {
         Route::get('/index', [MovieController::class, 'index'])->name('movie.index');
@@ -75,7 +82,21 @@ use App\Http\Controllers\ZoneController;
         Route::post('/store', [MusicController::class, 'store'])->name('music.store');
         Route::delete('/delete/{id}', [MusicController::class, 'delete'])->name('music.delete');
     });
+    Route::prefix('hotel_info')->group(function () {
+        Route::get('/index', [HotelController::class, 'index'])->name('hotel_info.index');
+        Route::get('/create', [HotelController::class, 'create'])->name('hotel_info.create');
+        Route::post('/store', [HotelController::class, 'store'])->name('hotel_info.store');
+        Route::get('/edit/{id}', [HotelController::class, 'edit'])->name('hotel_info.edit');
+        Route::put('/update/{id}', [HotelController::class, 'update'])->name('hotel_info.update');
+        Route::delete('/delete/{id}', [HotelController::class, 'delete'])->name('hotel_info.delete');
+    });
     Route::prefix('zone')->group(function () {
         Route::get('/index', [ZoneController::class, 'index'])->name('zone.index');
     });
-// });
+    Route::prefix('user')->group(function () {
+        Route::get('/list', [UserController::class, 'list'])->name('user.list');
+        Route::get('/create', [UserController::class, 'create'])->name('user.create');
+        Route::post('/store', [UserController::class, 'store'])->name('user.store');
+        Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
+    });
+});

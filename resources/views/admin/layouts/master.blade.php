@@ -33,7 +33,9 @@
     {{-- sweetalert --}}
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
 </head>
-
+<style>
+   
+</style>
 <body>
     <div class="container-fluid position-relative d-flex p-0">
         <div id="spinner"
@@ -52,7 +54,7 @@
 
             {{-- Dashboard --}}
             {{-- @include('admin.includes.dashboard') --}}
-            @yield('content')
+                @yield('content')
             <!-- Footer Start -->
             @include('admin.includes.footer')
         </div>

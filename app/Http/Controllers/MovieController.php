@@ -106,13 +106,17 @@ class MovieController extends Controller
         $data->summary = $request->summary;
         $data->detail = $request->detail;
 
-        $get_image = $request->file('image');
-        $get_name_image = $get_image->getClientOriginalName();
-        $path = 'public/uploads/';
-        $name_image = current(explode('.', $get_name_image));
-        $new_image = $name_image . '.' . $get_image->getClientOriginalExtension();
-        $get_image->move($path, $new_image);
-        $data->image = $new_image;
+        if ( $request->file('image') ) {
+            $get_image = $request->file('image');
+            $get_name_image = $get_image->getClientOriginalName();
+            $path = 'public/uploads/';
+            $name_image = current(explode('.', $get_name_image));
+            $new_image = $name_image . '.' . $get_image->getClientOriginalExtension();
+            $get_image->move($path, $new_image);
+            $data->image = $new_image;
+        }else{
+            $data->image = null;
+        }
 
         $data->id_category = $request->id_category;
         if ($request->meta_url == null) {
