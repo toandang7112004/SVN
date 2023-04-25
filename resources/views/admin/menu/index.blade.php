@@ -21,12 +21,12 @@
                             <td>{{ ++$key }}</td>
                             <td>{{ $result->title }}</td>
                             <td>
-                                <form method="post" action="">
+                                <form method="post" action="{{ route('menu.delete',[$result->id]) }}">
                                     @method('DELETE')
                                     @csrf
                                     <button onclick="return confirm('Bạn có chắc chắn xóa không?');"
                                     class="btn btn-sm btn-primary">Xóa</button>
-                                    <a href="" class="btn btn-sm btn-primary">Sửa</a>
+                                    <a href="{{ route('menu.edit',[$result->id]) }}" class="btn btn-sm btn-primary">Sửa</a>
                                 </form>
                             </td>
                         </tr>

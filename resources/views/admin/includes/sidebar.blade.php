@@ -34,7 +34,7 @@
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="{{ route('channel.index') }}" class="dropdown-item">Danh sách</a>
                     <hr>
-                    <a href="" class="dropdown-item">Thêm mới</a>
+                    <a href="{{ route('channel.create') }}" class="dropdown-item">Thêm mới</a>
                 </div>
             </div>
             <div class="nav-item dropdown">
@@ -43,7 +43,7 @@
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="{{ route('menu.index') }}" class="dropdown-item">Danh sách</a>
                     <hr>
-                    <a href="" class="dropdown-item">Thêm mới</a>
+                    <a href="{{ route('menu.create') }}" class="dropdown-item">Thêm mới</a>
                 </div>
             </div>
             <div class="nav-item dropdown">
@@ -61,7 +61,7 @@
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="{{ route('movie.index') }}" class="dropdown-item">Danh sách</a>
                     <hr>
-                    <a href="" class="dropdown-item">Thêm mới</a>
+                    <a href="{{ route('movie.create') }}" class="dropdown-item">Thêm mới</a>
                 </div>
             </div>
             <div class="nav-item dropdown">
@@ -70,7 +70,7 @@
                 <div class="dropdown-menu bg-transparent border-0">
                     <a href="{{ route('music.index') }}" class="dropdown-item">Danh sách</a>
                     <hr>
-                    <a href="" class="dropdown-item">Thêm mới</a>
+                    <a href="{{ route('music.create') }}" class="dropdown-item">Thêm mới</a>
                 </div>
             </div>
             <div class="nav-item dropdown">

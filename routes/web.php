@@ -42,19 +42,38 @@ use App\Http\Controllers\ZoneController;
     });
     Route::prefix('channel')->group(function () {
         Route::get('/index', [ChannelController::class, 'index'])->name('channel.index');
-        Route::get('/form_update/{id}', [ChannelController::class, 'form_update'])->name('channel.form_update');
+        Route::get('/create', [ChannelController::class, 'create'])->name('channel.create');
+        Route::post('/store', [ChannelController::class, 'store'])->name('channel.store');
+        Route::get('/edit/{id}', [ChannelController::class, 'edit'])->name('channel.edit');
+        Route::put('/update/{id}', [ChannelController::class, 'update'])->name('channel.update');
+        Route::delete('/delete/{id}', [ChannelController::class, 'delete'])->name('channel.delete');
     });
     Route::prefix('menu')->group(function () {
         Route::get('/index', [MenuController::class, 'index'])->name('menu.index');
+        Route::get('/create', [MenuController::class, 'create'])->name('menu.create');
+        Route::get('/edit/{id}', [MenuController::class, 'edit'])->name('menu.edit');
+        Route::put('/update/{id}', [MenuController::class, 'update'])->name('menu.update');
+        Route::post('/store', [MenuController::class, 'store'])->name('menu.store');
+        Route::delete('/delete/{id}', [MenuController::class, 'delete'])->name('menu.delete');
     });
     Route::prefix('service')->group(function () {
         Route::get('/index', [ServiceController::class, 'index'])->name('service.index');
     });
     Route::prefix('movie')->group(function () {
         Route::get('/index', [MovieController::class, 'index'])->name('movie.index');
+        Route::get('/create', [MovieController::class, 'create'])->name('movie.create');
+        Route::get('/edit/{id}', [MovieController::class, 'edit'])->name('movie.edit');
+        Route::put('/edit/{id}', [MovieController::class, 'update'])->name('movie.update');
+        Route::post('/store', [MovieController::class, 'store'])->name('movie.store');
+        Route::delete('/delete/{id}', [MovieController::class, 'delete'])->name('movie.delete');
     });
     Route::prefix('music')->group(function () {
         Route::get('/index', [MusicController::class, 'index'])->name('music.index');
+        Route::get('/create', [MusicController::class, 'create'])->name('music.create');
+        Route::get('/edit/{id}', [MusicController::class, 'edit'])->name('music.edit');
+        Route::put('/update/{id}', [MusicController::class, 'update'])->name('music.update');
+        Route::post('/store', [MusicController::class, 'store'])->name('music.store');
+        Route::delete('/delete/{id}', [MusicController::class, 'delete'])->name('music.delete');
     });
     Route::prefix('zone')->group(function () {
         Route::get('/index', [ZoneController::class, 'index'])->name('zone.index');

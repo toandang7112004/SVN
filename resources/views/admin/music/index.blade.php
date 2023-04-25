@@ -12,8 +12,9 @@
                     <thead>
                         <tr>
                             <th width="20%">STT</th>
-                            <th width="40%">Tên</th>
+                            <th width="20%">Tên</th>
                             <th width="20%">Thể loại</th>
+                            <th width="20%">Ảnh</th>
                             <th width="20%">Action</th>
                         </tr>
                     </thead>
@@ -21,14 +22,22 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $result->title }}</td>
-                            <td></td>
+                            <td>{{ $result->name }}</td>
+                            @if ( isset($result->image) )
                             <td>
-                                <form method="post" action="">
+                                <img src="{{ asset('public/uploads/' . $result->image) }}" width="100px" height="100px" alt="">
+                            </td>
+                            @else
+                                <td></td>
+                            @endif
+                            
+                            <td>
+                                <form method="post" action="{{ route('music.delete',[$result->id]) }}">
                                     @method('DELETE')
                                     @csrf
+                                    <a href="{{ route('music.edit',[$result->id]) }}" class="btn btn-sm btn-primary">Sửa</a>
                                     <button onclick="return confirm('Bạn có chắc chắn xóa không?');"
                                     class="btn btn-sm btn-primary">Xóa</button>
-                                    <a href="" class="btn btn-sm btn-primary">Sửa</a>
                                 </form>
                             </td>
                         </tr>
