@@ -10,6 +10,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\HotelController;
+use Illuminate\Log\Logger;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +93,7 @@ Route::prefix('/')->middleware(['auth', 'prevent-back-history'])->group(function
     });
     Route::prefix('zone')->group(function () {
         Route::get('/index', [ZoneController::class, 'index'])->name('zone.index');
+        Route::get('/readzone/{id}', [ZoneController::class, 'readzone'])->name('hotel-zone-read');
     });
     Route::prefix('user')->group(function () {
         Route::get('/list', [UserController::class, 'list'])->name('user.list');
@@ -99,4 +101,5 @@ Route::prefix('/')->middleware(['auth', 'prevent-back-history'])->group(function
         Route::post('/store', [UserController::class, 'store'])->name('user.store');
         Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
     });
+    
 });

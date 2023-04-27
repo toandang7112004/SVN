@@ -32,6 +32,7 @@
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     {{-- sweetalert --}}
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 </head>
 <style>
    
@@ -73,6 +74,8 @@
     <script src="{{ asset('assets/lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
     <script src="{{ asset('assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    @yield('js')
+    @yield('css')
 </body>
 
 </html>
