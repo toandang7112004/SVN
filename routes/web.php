@@ -10,7 +10,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\HotelController;
-use Illuminate\Log\Logger;
+use App\Http\Controllers\GroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +100,14 @@ Route::prefix('/')->middleware(['auth', 'prevent-back-history'])->group(function
         Route::get('/create', [UserController::class, 'create'])->name('user.create');
         Route::post('/store', [UserController::class, 'store'])->name('user.store');
         Route::delete('/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
+    });
+    Route::prefix('group')->group(function () {
+        Route::get('/index', [GroupController::class, 'index'])->name('group.index');
+        Route::get('/create', [GroupController::class, 'create'])->name('group.create');
+        Route::post('/store', [GroupController::class, 'store'])->name('group.store');
+        Route::get('/edit/{id}', [GroupController::class, 'edit'])->name('group.edit');
+        Route::put('/update/{id}', [GroupController::class, 'update'])->name('group.update');
+        Route::delete('/delete/{id}', [GroupController::class, 'delete'])->name('group.delete');
     });
     
 });

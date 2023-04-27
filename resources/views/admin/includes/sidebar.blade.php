@@ -86,6 +86,15 @@
                 </div>
             </div>
             @endif
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                        class="far fa-file-alt me-2"></i>Position</a>
+                <div class="dropdown-menu bg-transparent border-0">
+                    <a href="{{ route('group.index') }}" class="dropdown-item">Danh sách</a>
+                    <hr>
+                    <a href="{{ route('group.create') }}" class="dropdown-item">Thêm mới</a>
+                </div>
+            </div>
         </div>
     </nav>
 </div>
