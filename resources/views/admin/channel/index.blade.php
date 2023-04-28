@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
@@ -24,12 +24,20 @@
                             <td>{{ $result->meta_description }}</td>
                             <td>{{ $result->meta_keyword }}</td>
                             <td>
-                                <form method="post" action="{{ route('channel.delete',[$result->id]) }}">
+                                <form method="post" action="{{ route('channel.delete', [$result->id]) }}">
                                     @method('DELETE')
                                     @csrf
-                                    <button onclick="return confirm('Bạn có chắc chắn xóa không?');"
-                                    class="btn btn-sm btn-primary">Xóa</button>
-                                    <a href="{{ route('channel.edit',[$result->id]) }}" class="btn btn-sm btn-primary">Sửa</a>
+                                    @if (Auth::user()->hasPermission('channel_delete'))
+                                        <button onclick="return confirm('Bạn có chắc chắn xóa không?');"
+                                            class="btn btn-sm btn-primary">Xóa</button>
+                                    @else
+                                    @endif
+
+                                    @if (Auth::user()->hasPermission('channel_create'))
+                                        <a href="{{ route('channel.edit', [$result->id]) }}"
+                                            class="btn btn-sm btn-primary">Sửa</a>
+                                    @else
+                                    @endif
                                 </form>
                             </td>
                         </tr>

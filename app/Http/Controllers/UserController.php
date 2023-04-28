@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
+use App\Models\Group;
 use App\Models\Zone;
 use Dotenv\Validator;
 use Illuminate\Log\Logger;
@@ -70,11 +71,14 @@ class UserController extends Controller
         
     }
     public function list(){
+        $this->authorize('viewAny',[Article::class, 'User']);
         $users = User::paginate(10);
         return view('admin.user.list',compact('users'));
     }
     public function create(){
-        return view('admin.user.create');
+        $this->authorize('create',[Article::class, 'User']);
+        $groups = Group::all();
+        return view('admin.user.create',compact('groups'));
     }
     public function store( Request $request ){
         $repeat = 0 ;
@@ -90,9 +94,7 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->phone = $request->phone;
             $user->email = $request->email;
-            $user->type = $request->type;
-            // $user->password = $request->password;
-            // $user->confirm_password = $request->confirm_password;
+            $user->group_id = $request->group_id;
             if ($request->password == $request->confirm_password ) {
                 $user->password = Hash::make($request->password);
                 $user->save();
@@ -108,10 +110,12 @@ class UserController extends Controller
         }
     }
     public function edit( $id ){
+        $this->authorize('update',[Article::class, 'User']);
         $users = User::find($id);
         return view('admin.user.edit',compact('users'));
     }
     public function delete( $id ){
+        $this->authorize('delete',[Article::class, 'User']);
         $users = User::find($id)->delete();
         toast("Xóa người dùng thành công", 'success', 'top-right');
         return redirect()->route('user.list');

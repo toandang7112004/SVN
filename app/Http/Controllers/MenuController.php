@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Menu\StoreMenuRequest;
+use App\Http\Requests\Menu\UpdateMenuRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Article;
@@ -13,6 +15,7 @@ class MenuController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny',[Article::class, 'Menu']);
         $categoryName = 'Menu';
         $results =  DB::table('article')
             ->select('id', 'title')
@@ -24,10 +27,11 @@ class MenuController extends Controller
     }
     public function create()
     {
+        $this->authorize('create',[Article::class, 'Menu']);
         $cate = Category::where('id', '=', '8')->get();
         return view('admin.menu.create',compact('cate'));
     }
-    public function store(Request $request)
+    public function store(StoreMenuRequest $request)
     {
         $data = new Article();
         $slug_vi = Str::slug($request->title, $separator = '-');
@@ -55,10 +59,11 @@ class MenuController extends Controller
         }
     }
     public function edit( $id ){
+        $this->authorize('update',[Article::class, 'Menu']);
         $menu = Article::find($id);
         return view('admin.menu.edit',compact('menu'));
     }
-    public function update( $id , Request $request){
+    public function update( $id , UpdateMenuRequest $request){
         $data = Article::find($id);
         $slug_vi = Str::slug($request->title, $separator = '-');
         $check_vi = $data::where('slug', '=', $slug_vi)->get();
@@ -90,6 +95,7 @@ class MenuController extends Controller
         }
     }
     public function delete( $id ){
+        $this->authorize('delete',[Article::class, 'Menu']);
         $menu = Article::find($id)->delete();
         return redirect()->route('menu.index');
     }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Info\StoreInfoRequest;
+use App\Http\Requests\Info\UpdateInfoRequest;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Category;
@@ -13,6 +15,7 @@ class HotelController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny',[Article::class, 'Info']);
         $categoryName = 'Giới thiệu';
         $results =  DB::table('article')
             ->select('id', 'title')
@@ -24,10 +27,11 @@ class HotelController extends Controller
     }
     public function create()
     {
+        $this->authorize('create',[Article::class, 'Info']);
         $cate = Category::where('id', '=', '2')->get();
         return view('admin.hotel_info.create', compact('cate'));
     }
-    public function store(Request $request)
+    public function store(StoreInfoRequest $request)
     {
         $data = new Article();
         $slug_vi = Str::slug($request->title, $separator = '-');
@@ -69,10 +73,11 @@ class HotelController extends Controller
     }
     public function edit($id)
     {
+        $this->authorize('update',[Article::class, 'Info']);
         $infos = Article::find($id);
         return view('admin.hotel_info.edit', compact('infos'));
     }
-    public function update($id, Request $request)
+    public function update($id, UpdateInfoRequest $request)
     {
         $data = Article::find($id);
         $slug_vi = Str::slug($request->title, $separator = '-');
@@ -115,7 +120,8 @@ class HotelController extends Controller
     }
     public function delete($id)
     {
+        $this->authorize('delete',[Article::class, 'Info']);
         $data = Article::find($id)->delete();
-        return view('admin.hotel_info.index');
+        return redirect()->route('hotel_info.index');
     }
 }

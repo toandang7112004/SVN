@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\service\StoreServiceRequest;
+use App\Http\Requests\service\UpdateServiceRequest;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -11,6 +13,7 @@ use Illuminate\Support\Str;
 class ServiceController extends Controller
 {
     public function index(){
+        $this->authorize('viewAny',[Article::class, 'Service']);
         $categoryName = 'Service';
         $results =  DB::table('article')
         ->select('id','title')
@@ -21,10 +24,11 @@ class ServiceController extends Controller
         return view('admin.service.index',compact('results'));
     }
     public function create(){
+        $this->authorize('create',[Article::class, 'Service']);
         $cate = Category::where('id', '=', '10')->get();
         return view('admin.service.create',compact('cate'));
     }
-    public function store( Request $request ){
+    public function store( StoreServiceRequest $request ){
         $data = new Article();
         $slug_vi = Str::slug($request->title, $separator = '-');
         $check_vi = $data::where('slug', '=', $slug_vi)->get();
@@ -64,11 +68,12 @@ class ServiceController extends Controller
         }
     }
     public function edit( $id ){
+        $this->authorize('update',[Article::class, 'Service']);
         $services = Article::find($id);
         $cate = Category::where('id', '=', '10')->get();
         return view('admin.service.edit', compact('services','cate'));
     }
-    public function update( $id , Request $request){
+    public function update( $id , UpdateServiceRequest $request){
         $data = Article::find($id);
         $slug_vi = Str::slug($request->title, $separator = '-');
         $check_vi = $data::where('slug', '=', $slug_vi)->get();
@@ -108,6 +113,7 @@ class ServiceController extends Controller
         }
     }
     public function delete($id){
+        $this->authorize('delete',[Article::class, 'Service']);
         $services = Article::find($id)->delete();
         return redirect()->route('service.index');
     }

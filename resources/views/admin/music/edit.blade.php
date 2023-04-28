@@ -29,6 +29,9 @@
                                                 <input type="text" class="form-control" id="title" name="title"
                                                     value="{{ $musics->title }}">
                                             </div>
+                                            @error('title')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                         <div class="form-group">
@@ -56,6 +59,9 @@
                                                     >
                                                     <img src="{{ asset('public/uploads/' . $musics->image) }}" width="100px" height="100px" alt="">
                                             </div>
+                                            @error('image')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <br>
                                         <hr>

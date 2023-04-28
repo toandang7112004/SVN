@@ -43,6 +43,9 @@
                                                 <input type="text" class="form-control" id="title" name="title"
                                                     value="">
                                             </div>
+                                            @error('title')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                         <div class="form-group">
@@ -52,6 +55,9 @@
                                                 <input type="text" class="form-control" id="title" name="summary"
                                                     value="">
                                             </div>
+                                            @error('summary')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                     </div>
@@ -61,6 +67,9 @@
                                             <input readonly type="file" name="image" class="form-control"
                                                 id="image" value="">
                                         </div>
+                                        @error('image')
+                                            <div class="text text-danger ">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <div class="col-lg-offset-12 col-lg-12">

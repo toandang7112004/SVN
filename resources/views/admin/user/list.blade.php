@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
     <div class="container-fluid pt-4 px-4">
         <div class="bg-secondary text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
@@ -26,20 +26,21 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>
-                                @if ($user->type == 2)
-                                    Poster
-                                @elseif($user->type == 3)
-                                    Trực Phòng
-                                @endif
+                                {{ $user->groups->name }}
                             </td>
                             <td>{{ $user->username }}</td>
                             <td>
-                                <form method="post" action="{{ route('user.delete',[$user->id]) }}">
+                                <form method="post" action="{{ route('user.delete', [$user->id]) }}">
                                     @method('DELETE')
                                     @csrf
-                                    {{-- <a href="{{ route('user.edit',[$user->id]) }}" class="btn btn-sm btn-primary">Sửa</a> --}}
-                                    <button onclick="return confirm('Bạn có chắc chắn xóa không?');"
-                                    class="btn btn-sm btn-primary">Xóa</button>
+                                    {{-- @if (Auth::user()->hasPermission('user_update'))
+                                        <a href="{{ route('user.edit', [$user->id]) }}"
+                                            class="btn btn-sm btn-primary">Sửa</a>
+                                    @endif --}}
+                                    @if (Auth::user()->hasPermission('user_delete'))
+                                        <button onclick="return confirm('Bạn có chắc chắn xóa không?');"
+                                            class="btn btn-sm btn-primary">Xóa</button>
+                                    @endif
                                 </form>
                             </td>
                         </tr>

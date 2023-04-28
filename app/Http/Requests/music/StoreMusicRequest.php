@@ -22,7 +22,17 @@ class StoreMusicRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required',
+            'image' => 'required',
+            'summary' => 'required',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'title.required' => 'Vui lòng nhập',
+            'image.required' => 'Vui lòng nhập',
+            'summary.required' => 'Vui lòng nhập',
         ];
     }
 }
