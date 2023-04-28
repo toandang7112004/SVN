@@ -15,6 +15,7 @@ class MusicController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny',[Article::class, 'Music']);
         $categoryName = ['Bolero', 'Trữ Tình', 'Không Lời','Nhạc US'];
         $results =  DB::table('article')
             ->join('category', 'article.id_category', '=', 'category.id')
@@ -25,6 +26,7 @@ class MusicController extends Controller
     }
     public function create()
     {
+        $this->authorize('create',[Article::class, 'Music']);
         $cate = Category::where(array('parent_id' => 11))->where('id', '!=', '11')->get();
         return view('admin.music.create', compact('cate'));
     }
@@ -88,6 +90,7 @@ class MusicController extends Controller
     }
     public function delete($id)
     {
+        $this->authorize('delete',[Article::class, 'Music']);
         $result = Article::find($id)->delete();
         if ($result == 'true') {
             toast("Bạn đã xóa thành công ", 'success', 'top-right');
@@ -96,10 +99,9 @@ class MusicController extends Controller
     }
     public function edit($id)
     {
+        $this->authorize('update',[Article::class, 'Music']);
         $musics = Article::find($id);
         $cate = Category::where(array('parent_id' => 11))->where('id', '!=', '11')->get();
-        // dd($cate);
-        // dd($musics->image );
         return view('admin.music.edit', compact('musics', 'cate'));
     }
     public function update($id, Request $request)

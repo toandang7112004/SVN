@@ -47,6 +47,9 @@
                                                 <input type="text" class="form-control" id="title" name="title"
                                                     value="{{ $channel->title }}">
                                             </div>
+                                            @error('title')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                         <div class="form-group">
@@ -55,6 +58,9 @@
                                                 <input type="text" class="form-control" id="title" name="meta_description"
                                                     value="{{ $channel->meta_description }}">
                                             </div>
+                                            @error('meta_description')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                         <div class="form-group">
@@ -63,6 +69,9 @@
                                                 <input type="text" class="form-control" id="title" name="meta_keyword"
                                                     value="{{$channel->meta_keyword}}">
                                             </div>
+                                            @error('meta_keyword')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                         <div class="form-group">
@@ -72,6 +81,9 @@
                                                     id="image"
                                                     value="">
                                             </div>
+                                            @error('image')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                     </div>

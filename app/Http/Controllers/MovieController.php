@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\movie\StoreMovieRequest;
+use App\Http\Requests\movie\UpdateMovieRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class MovieController extends Controller
 {
     public function index(){
+        $this->authorize('viewAny',[Article::class, 'Movie']);
         $categoryName = 'Movie';
         $results =  DB::table('article')
         ->select('id','title')
@@ -21,10 +24,11 @@ class MovieController extends Controller
         return view('admin.movie.index',compact('results'));
     }
     public function create(){
+        $this->authorize('create',[Article::class, 'Movie']);
         $cate = Category::where('id', '=', '15')->get();
         return view('admin.movie.create',compact('cate'));
     }
-    public function store( Request $request ){
+    public function store( StoreMovieRequest $request ){
         $data = new Article();
         $slug_vi = Str::slug($request->title, $separator = '-');
         $slug_en = Str::slug($request->title_en, $separator = '-');
@@ -81,15 +85,17 @@ class MovieController extends Controller
         }
     }
     public function delete( $id ){
+        $this->authorize('delete',[Article::class, 'Movie']);
         $movie = Article::find($id)->delete();
         return redirect()->route('movie.index');
     }
     public function edit( $id ){
+        $this->authorize('update',[Article::class, 'Movie']);
         $movies = Article::find($id);
         $cate = Category::where('id', '=', '15')->get();
         return view('admin.movie.edit',compact('movies','cate'));
     }
-    public function update( $id , Request $request ){
+    public function update( $id , UpdateMovieRequest $request ){
         $data = Article::find($id);
         $slug_vi = Str::slug($request->title, $separator = '-');
         $slug_en = Str::slug($request->title_en, $separator = '-');

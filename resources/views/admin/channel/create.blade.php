@@ -43,6 +43,9 @@
                                                 <input type="text" class="form-control" id="title" name="title"
                                                     value="">
                                             </div>
+                                            @error('title')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                         <div class="form-group">
@@ -51,6 +54,9 @@
                                                 <input type="text" class="form-control" id="title" name="meta_description"
                                                     value="">
                                             </div>
+                                            @error('meta_description')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                         <div class="form-group">
@@ -59,6 +65,9 @@
                                                 <input type="text" class="form-control" id="title" name="meta_keyword"
                                                     value="5000">
                                             </div>
+                                            @error('meta_keyword')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                         <div class="form-group">
@@ -68,6 +77,9 @@
                                                     id="image"
                                                     value="/yokohotel/public/media/file/files/channel/icon-tivi-logo.png">
                                             </div>
+                                            @error('image')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                     </div>

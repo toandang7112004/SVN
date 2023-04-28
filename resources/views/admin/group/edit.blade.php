@@ -25,6 +25,9 @@
                                                 <input type="text" class="form-control" name="name"
                                                     value="{{ $group->name }}">
                                             </div>
+                                            @error('name')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                     </div>

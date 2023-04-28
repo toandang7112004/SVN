@@ -108,6 +108,9 @@ Route::prefix('/')->middleware(['auth', 'prevent-back-history'])->group(function
         Route::get('/edit/{id}', [GroupController::class, 'edit'])->name('group.edit');
         Route::put('/update/{id}', [GroupController::class, 'update'])->name('group.update');
         Route::delete('/delete/{id}', [GroupController::class, 'delete'])->name('group.delete');
+        //trao quyền
+        Route::get('/detail/{id}', [GroupController::class, 'detail'])->name('group.detail');
+        Route::put('update/position/{id}', [GroupController::class, 'update_position'])->name('group.update_position');
     });
     
 });

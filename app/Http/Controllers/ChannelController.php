@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Channel\StoreChannelRequest;
+use App\Http\Requests\Channel\UpdateChannelRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Article;
@@ -12,6 +14,7 @@ class ChannelController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny',[Article::class, 'Channel']);
         $categoryName = 'Channel';
         $results =  DB::table('article')
         ->select('id','title','meta_description','meta_keyword')
@@ -22,10 +25,11 @@ class ChannelController extends Controller
         return view('admin.channel.index',compact('results'));
     }
     public function create(){
+        $this->authorize('create',[Article::class, 'Channel']);
         $cate = Category::where('id', '=', '16')->get();
         return view('admin.channel.create',compact('cate'));
     }
-    public function store(Request $request){
+    public function store(StoreChannelRequest $request){
         $data = new Article();
         $slug_vi = Str::slug($request->title, $separator = '-');
         $slug_en = Str::slug($request->title_en, $separator = '-');
@@ -55,11 +59,12 @@ class ChannelController extends Controller
         }
     }
     public function edit( $id ){
+        $this->authorize('update',[Article::class, 'Channel']);
         $channel = Article::find($id);
         $cate = Category::where('id', '=', '16')->get();
         return view('admin.channel.edit',compact('channel','cate'));
     }
-    public function update( $id , Request $request){
+    public function update( $id , UpdateChannelRequest $request){
         $data = Article::find($id);
         $slug_vi = Str::slug($request->title, $separator = '-');
         $slug_en = Str::slug($request->title_en, $separator = '-');
@@ -95,6 +100,7 @@ class ChannelController extends Controller
         }
     }
     public function delete( $id ){
+        $this->authorize('delete',[Article::class, 'Channel']);
         $channel = Article::find($id)->delete();
         return redirect()->route('channel.index');
     }

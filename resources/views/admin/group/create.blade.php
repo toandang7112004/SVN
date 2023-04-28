@@ -24,6 +24,9 @@
                                                 <input type="text" class="form-control" name="name"
                                                     value="">
                                             </div>
+                                            @error('name')
+                                                <div class="text text-danger ">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <hr>
                                     </div>
