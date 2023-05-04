@@ -12,54 +12,84 @@
                     </ul>
                 </header>
                 <div class="panel-body">
-                    <form class="cmxform form-horizontal tasi-form" id="signupForm" method="post" action="{{ route('user.update',[$users->id]) }}">
+                    <form class="cmxform form-horizontal tasi-form" id="signupForm" method="post"
+                        action="{{ route('user.update', [$users->id]) }}">
                         @method('put')
                         @csrf
                         <div class="form-group ">
                             <label for="username" class="control-label col-lg-2">Username</label>
                             <div class="col-lg-12">
-                                <input class="form-control " id="username" name="username" type="text" value="{{ $users->username }}" />
+                                <input class="form-control " id="username" name="username" type="text"
+                                    value="{{ $users->username }}" />
                             </div>
+                            @error('username')
+                                <div class="text text-danger ">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group ">
                             <label for="password">Mật khẩu </label>
                             <div class="col-lg-12">
-                                <input class="form-control " id="password" name="password" type="password" value="{{ $users->password }}"/>
+                                <input class="form-control " id="password" name="password" type="password"
+                                    value="{{ $users->password }}" />
                             </div>
+                            @error('password')
+                                <div class="text text-danger ">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group ">
                             <label for="confirm_password" class="control-label col-lg-2">Nhập lại mật khẩu</label>
                             <div class="col-lg-12">
-                                <input class="form-control " id="confirm_password" name="confirm_password"
-                                    type="password" value="{{ $users->confirm_password }}"/>
+                                <input class="form-control " id="confirm_password" name="confirm_password" type="password"
+                                    value="{{ $users->confirm_password }}" />
                             </div>
+                            @error('confirm_password')
+                                <div class="text text-danger ">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="name" class="col-lg-2 col-sm-2 control-label">Name</label>
                             <div class="col-lg-12">
-                                <input type="text" class="form-control" id="name" name="name" value="{{ $users->name }}">
+                                <input type="text" class="form-control" id="name" name="name"
+                                    value="{{ $users->name }}">
                             </div>
+                            @error('name')
+                                <div class="text text-danger ">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="phone" class="col-lg-2 col-sm-2 control-label">Phone</label>
                             <div class="col-lg-12">
-                                <input type="number" class="form-control" id="phone" name="phone" value="{{ $users->phone }}">
+                                <input type="number" class="form-control" id="phone" name="phone"
+                                    value="{{ $users->phone }}">
                             </div>
+                            @error('phone')
+                                <div class="text text-danger ">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-lg-2 col-sm-2 control-label">Email</label>
                             <div class="col-lg-12">
-                                <input type="email" class="form-control" id="email" name="email" value="{{ $users->email }}">
+                                <input type="email" class="form-control" id="email" name="email"
+                                    value="{{ $users->email }}">
                             </div>
+                            @error('email')
+                                <div class="text text-danger ">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-lg-2 col-sm-2 control-label">Bộ phận</label>
                             <div class="col-lg-12">
-                                <select name="type" class="form-control" id="type" value="{{ $users->type }}">
-                                    <option value="2"> Poster </option>
-                                    <option value="3">Trực Phòng </option>
+                                <select name="group_id" id="" class="form-control">
+                                    <option value="">--Vui lòng chọn--</option>
+                                    @foreach ($groups as $group)
+                                        <option value="{{ $group->id }}">
+                                            {{ $group->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
+                            @error('group_id')
+                                <div class="text text-danger ">{{ $message }}</div>
+                            @enderror
                         </div>
                         <br>
                         <div class="form-group">

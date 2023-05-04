@@ -1,5 +1,6 @@
  @extends('admin.layouts.master')
  @section('content')
+ @include('sweetalert::alert')
      <div class="container-fluid pt-4 px-4">
          <div class="bg-secondary text-center rounded p-4">
              <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
@@ -16,7 +17,6 @@
              </div>
              <div id="myModal" class="modal fade" role="dialog">
                  <div class="modal-dialog">
-                     <!-- Modal content-->
                      <div class="modal-content">
                          <div class="modal-header">
                              <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -33,9 +33,9 @@
                  </div>
              </div>
              <div id="zone-display-request" class="row">
-                <div id="zone-display" class="row">
+                 <div id="zone-display" class="row">
 
-                </div>
+                 </div>
              </div>
          @endsection
          @section('css')
@@ -62,17 +62,74 @@
          @endsection
          @section('js')
              <script>
-                 $('.showzone').on('click', function() {
-                     var zoneId = $(this).data('id');
-                     $.ajax({
-                             url: 'http://127.0.0.1:8000/zone/readzone/' + zoneId,
-                             method: 'GET',
-                             dataType: 'json',
-                             encode: true,
-                             success: function(data) {
-                                $('#zone-display').html(data);
-                             }
-                         })
+                 //showzone
+                 $(".showzone").on("click", function() {
+                     var id = $(this).attr('data-id');
+                     showzone(id);
+
                  })
+
+                 function showzone(id) {
+                     $.ajax({
+                         url: 'http://127.0.0.1:8000/zone/readzone/' + id,
+                         method: 'GET',
+                         dataType: 'json',
+                         encode: true,
+                         success: function(data) {
+                             $('#zone-display').html(data);
+                         }
+                     })
+                 }
+                 //checkout
+                 $(document).on('click', '.checkout', function(e) {
+                     var room = $(this).attr('data-id');
+                     checkout(room);
+                 })
+
+                 function checkout(room) {
+                     $.ajax({
+                         url: 'http://127.0.0.1:8000/zone/checkout/' + room,
+                         method: 'GET',
+                         dataType: 'json',
+                         encode: true,
+                         success: function(data) {
+                             showzone(data)
+                         }
+                     })
+                 }
+                 //Bill
+                 $(document).on('click', '.checkbill', function(e) {
+                     var room = $(this).attr('data-id');
+                     bill(room);
+                 })
+
+                 function bill(room) {
+                     $.ajax({
+                         url: 'http://127.0.0.1:8000/zone/bill/' + room,
+                         method: 'GET',
+                         dataType: 'json',
+                         encode: true,
+                         success: function(data) {
+                             $('#myModal .modal-body').html(data);
+                         }
+                     })
+                 }
+                 //request
+                 $(document).on('click', '.checkrequest', function(e) {
+                     var room = $(this).attr('data-id');
+                     listrequestroom(room);
+                 });
+                 function listrequestroom(room){
+                    $.ajax({
+                         url: 'http://127.0.0.1:8000/zone/request/' + room,
+                         method: 'GET',
+                         dataType: 'json',
+                         encode: true,
+                         success: function(data) {
+                             $('#myModal').show();
+                             $('#myModal .modal-body').html(data);
+                         }
+                     })
+                 }
              </script>
          @endsection

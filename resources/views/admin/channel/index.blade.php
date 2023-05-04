@@ -5,7 +5,11 @@
         <div class="bg-secondary text-center rounded p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <a href="">Show All</a>
+                <form class="d-none d-md-flex ms-4" id="form_request">
+                    <input class="form-control bg-dark border-0" id="search" placeholder="Search">
+                </form>
             </div>
+
             <div class="table-responsive">
                 <table class="table text-start align-middle table-bordered table-hover mb-0">
                     <thead>
@@ -49,4 +53,19 @@
             <p>{{ $results->onEachSide(10)->links() }}</p>
         </div>
     </div>
+@endsection
+@section('js')
+    <script>
+            $('#search').keydown(function() {
+                var text = $(this).val();
+                $.ajax(
+                    url: "{{ route('channel.search') }}?key=" + text,
+                    method: 'get',
+                    dataType: 'json',
+                    success: function(data) {
+                        alert(111);
+                    }
+                )
+            })
+    </script>
 @endsection

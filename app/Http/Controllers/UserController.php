@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\StoreChangePasswordRequest;
+use App\Http\Requests\User\RegisterRequest;
 use App\Models\Group;
 use App\Models\Zone;
 use Dotenv\Validator;
 use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 
 class UserController extends Controller
 {
@@ -67,8 +71,21 @@ class UserController extends Controller
         $user = User::find($id);
         return view('admin.user.changepassword',compact('user'));
     }
-    public function post_form_change_password( $id , Request $request ){
-        
+    public function post_form_change_password( $id , StoreChangePasswordRequest $request ){
+        $data = ['name' => $request->username, 'password' => $request->oldpassword];
+        if( Auth::attempt($data) ){
+            $user = User::find($id);
+            if ($request->password == $request->confirm_password ) {
+                $user->password = Hash::make($request->password);
+                if( $user->save() ){
+                    toast("Đổi mật khẩu thành công", 'success', 'top-right');
+                    return redirect()->route('admin.index');
+                }else{
+                    toast("Đổi mật khẩu không thành công", 'success', 'top-right');
+                    return redirect()->route('admin.index'); 
+                }
+        }
+    }
     }
     public function list(){
         $this->authorize('viewAny',[Article::class, 'User']);
@@ -80,7 +97,7 @@ class UserController extends Controller
         $groups = Group::all();
         return view('admin.user.create',compact('groups'));
     }
-    public function store( Request $request ){
+    public function store( RegisterRequest $request ){
         $repeat = 0 ;
         $users = User::all();
         foreach($users as $user){

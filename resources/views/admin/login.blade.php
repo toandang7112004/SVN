@@ -62,10 +62,16 @@
                                 <input type="text" class="form-control" name="username"
                                     placeholder="name@example.com">
                                 <label>Username</label>
+                                @error('username')
+                                    <div class="text text-danger ">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-floating mb-4">
                                 <input type="password" class="form-control" name="password" placeholder="Password">
                                 <label>Password</label>
+                                @error('password')
+                                    <div class="text text-danger ">{{ $message }}</div>
+                                @enderror
                             </div>
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
                         </form>
