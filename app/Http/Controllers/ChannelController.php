@@ -104,4 +104,8 @@ class ChannelController extends Controller
         $channel = Article::find($id)->delete();
         return redirect()->route('channel.index');
     }
+    public function search(){
+        $data = Article::search()->get();
+        return $data;
+    }
 }

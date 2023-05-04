@@ -41,4 +41,10 @@ class Article extends Model
     protected $guarded = [
         'id'
     ];
+    public function scopeSearch($query){
+        if(request('key')){
+            $key = request('key');
+            $query = $query->where('title','like','%'.$key.'%');
+        }
+    }
 }

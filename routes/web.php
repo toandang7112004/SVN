@@ -50,6 +50,7 @@ Route::prefix('/')->middleware(['auth', 'prevent-back-history'])->group(function
         Route::get('/edit/{id}', [ChannelController::class, 'edit'])->name('channel.edit');
         Route::put('/update/{id}', [ChannelController::class, 'update'])->name('channel.update');
         Route::delete('/delete/{id}', [ChannelController::class, 'delete'])->name('channel.delete');
+        Route::get('/search', [ChannelController::class, 'search'])->name('channel.search');
     });
     Route::prefix('menu')->group(function () {
         Route::get('/index', [MenuController::class, 'index'])->name('menu.index');
@@ -94,6 +95,9 @@ Route::prefix('/')->middleware(['auth', 'prevent-back-history'])->group(function
     Route::prefix('zone')->group(function () {
         Route::get('/index', [ZoneController::class, 'index'])->name('zone.index');
         Route::get('/readzone/{id}', [ZoneController::class, 'readzone'])->name('hotel-zone-read');
+        Route::get('/checkout/{room}', [ZoneController::class, 'checkout'])->name('hotel-check-out');
+        Route::get('/bill/{room}', [ZoneController::class, 'bill'])->name('hotel-check-bill');
+        Route::get('/request/{room}', [ZoneController::class, 'request'])->name('hotel-check-request');
     });
     Route::prefix('user')->group(function () {
         Route::get('/list', [UserController::class, 'list'])->name('user.list');
