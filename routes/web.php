@@ -11,6 +11,7 @@ use App\Http\Controllers\MusicController;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\BackgroundController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,8 +90,9 @@ Route::prefix('/')->middleware(['auth', 'prevent-back-history'])->group(function
         Route::get('/create', [HotelController::class, 'create'])->name('hotel_info.create');
         Route::post('/store', [HotelController::class, 'store'])->name('hotel_info.store');
         Route::get('/edit/{id}', [HotelController::class, 'edit'])->name('hotel_info.edit');
-        Route::put('/update/{id}', [HotelController::class, 'update'])->name('hotel_info.update');
-        Route::delete('/delete/{id}', [HotelController::class, 'delete'])->name('hotel_info.delete');
+        Route::post('/update/{id}', [HotelController::class, 'update'])->name('hotel_info.update');
+        Route::get('/delete/{id}', [HotelController::class, 'delete'])->name('hotel_info.delete');
+        Route::get('/search', [HotelController::class, 'search'])->name('hotel_info.search');
     });
     Route::prefix('zone')->group(function () {
         Route::get('/index', [ZoneController::class, 'index'])->name('zone.index');
@@ -116,5 +118,10 @@ Route::prefix('/')->middleware(['auth', 'prevent-back-history'])->group(function
         Route::get('/detail/{id}', [GroupController::class, 'detail'])->name('group.detail');
         Route::put('update/position/{id}', [GroupController::class, 'update_position'])->name('group.update_position');
     });
-    
+    Route::prefix('backgound')->group(function () {
+        Route::get('/index', [BackgroundController::class, 'index'])->name('backgound.index');
+    });
+});
+Route::get('/display/index',function(){
+    return view('displaytivi.index');
 });

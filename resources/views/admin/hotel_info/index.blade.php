@@ -9,8 +9,8 @@
                     <input class="form-control bg-dark border-0" type="search" placeholder="Search">
                 </form>
             </div>
-            <div class="table-responsive">
-                <table class="table text-start align-middle table-bordered table-hover mb-0">
+            <div class="table-responsive ">
+                <table class="table text-start align-middle table-bordered table-hover mb-0 ">
                     <thead>
                         <tr>
                             <th width="30%">STT</th>
@@ -18,9 +18,9 @@
                             <th width="30%">Action</th>
                         </tr>
                     </thead>
-                    @foreach ($results as $key => $result)
-                        <tr>
-                            <td>{{ ++$key }}</td>
+                    {{-- @foreach ($results as $key => $result) --}}
+                        <tr class="list">
+                            {{-- <td>{{ ++$key }}</td>
                             <td>{{ $result->title }}</td>
                             <td>
                                 <form method="post" action="{{ route('hotel_info.delete', [$result->id]) }}">
@@ -35,14 +35,15 @@
                                             class="btn btn-sm btn-primary">Sửa</a>
                                     @endif
                                 </form>
-                            </td>
+                            </td> --}}
                         </tr>
-                    @endforeach
+                    {{-- @endforeach --}}
                     </tbody>
                 </table>
             </div>
             <br>
-            <p>{{ $results->onEachSide(10)->links() }}</p>
+            {{-- <p>{{ $results->onEachSide(10)->links() }}</p> --}}
         </div>
     </div>
 @endsection
+

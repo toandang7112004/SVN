@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Article extends Model
 {
@@ -44,7 +45,7 @@ class Article extends Model
     public function scopeSearch($query){
         if(request('key')){
             $key = request('key');
-            $query = $query->where('title','like','%'.$key.'%');
+            $query = $query -> where('title','like','%'.$key.'%')->where('id_category', '=', 2);
         }
     }
 }

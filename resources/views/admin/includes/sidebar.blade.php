@@ -6,7 +6,7 @@
         <div class="navbar-nav w-100">
             <a href="{{ route('admin.index') }}" class="nav-item nav-link active"><i
                     class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-            <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Background</a>
+            <a href="{{ route('backgound.index') }}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Background</a>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                         class="far fa-file-alt me-2"></i>Profiles</a>
@@ -27,11 +27,13 @@
                         class="far fa-file-alt me-2"></i>Hotel Info</a>
                 <div class="dropdown-menu bg-transparent border-0">
                     @if (Auth::user()->hasPermission('hotel_info_viewAny'))
-                        <a href="{{ route('hotel_info.index') }}" class="dropdown-item">Danh sách</a>
+                        {{-- <a href="{{ route('hotel_info.index') }}" class="dropdown-item">Danh sách</a> --}}
+                    <button class="dropdown-item list_hotel">Danh sách</button>
                     @endif
                     <hr>
                     @if (Auth::user()->hasPermission('hotel_info_create'))
-                        <a href="{{ route('hotel_info.create') }}" class="dropdown-item">Thêm mới</a>
+                        {{-- <a href="{{ route('hotel_info.create') }}" class="dropdown-item">Thêm mới</a> --}}
+                    <button class="dropdown-item add_hotel">Thêm mới</button>
                     @endif
                 </div>
             </div>
@@ -129,3 +131,4 @@
         </div>
     </nav>
 </div>
+    

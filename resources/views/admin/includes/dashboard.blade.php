@@ -1,6 +1,6 @@
  @extends('admin.layouts.master')
  @section('content')
- @include('sweetalert::alert')
+     @include('sweetalert::alert')
      <div class="container-fluid pt-4 px-4">
          <div class="bg-secondary text-center rounded p-4">
              <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
@@ -76,7 +76,7 @@
                          dataType: 'json',
                          encode: true,
                          success: function(data) {
-                             $('#zone-display').html(data);
+                              $('#zone-display').html(data);
                          }
                      })
                  }
@@ -119,8 +119,9 @@
                      var room = $(this).attr('data-id');
                      listrequestroom(room);
                  });
-                 function listrequestroom(room){
-                    $.ajax({
+
+                 function listrequestroom(room) {
+                     $.ajax({
                          url: 'http://127.0.0.1:8000/zone/request/' + room,
                          method: 'GET',
                          dataType: 'json',
@@ -131,5 +132,6 @@
                          }
                      })
                  }
+                 
              </script>
          @endsection
