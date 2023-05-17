@@ -52,10 +52,10 @@ class ZoneController extends Controller
 
                 $html .= '<div class="col-sm-3" >
                       <section class="panel">
-                          <div class="weather-bg">
+                          <div class="weather-bg" style="border: 1px solid #ccc;">
                               <div class="panel-body">
                                   <div class="row">
-                                      <div class="col-5">
+                                      <div class="col-5"><i class="fas fa-home"></i>
                                          ' . $d->name . '
                                       </div>
                                       <div class="col-7 info">
@@ -85,11 +85,11 @@ class ZoneController extends Controller
             } else {
                 $html .= ' <div class="col-sm-3">
                         <section class="panel">
-                            <div class="weather-bg">
+                            <div class="weather-bg" style="border: 1px solid #ccc; padding:36px">
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-xs-5">
-                                          <i class="icon-home"></i>
+                                        <i class="fas fa-home"></i>
                                            ' . $d->name . '
                                         </div>
                                        <div class="col-xs-7 info">
@@ -149,7 +149,7 @@ class ZoneController extends Controller
                 if (isset($arrzonecustomer[$d->id])) {
                     $html .= ' <div class="col-sm-3">
                         <section class="panel">
-                            <div class="weather-bg">
+                            <div class="weather-bg style="border: 1px solid #ccc;">
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-xs-5">

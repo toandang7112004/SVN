@@ -72,7 +72,6 @@ class HotelController extends Controller
     }
     public function update($id, UpdateInfoRequest $request)
     {
-
         $data = Article::find($id);
         $data->title = $request->title;
         if ($request->file('detail')) {

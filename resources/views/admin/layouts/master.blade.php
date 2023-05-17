@@ -205,67 +205,76 @@
     //tìm kiếm
     var typingTimer;
     var doneTypingInterval = 700;
+    var lastSearchText = '';
     $(document).on("keyup", ".input-search-ajax", function(event) {
         event.preventDefault();
         clearTimeout(typingTimer);
-        var text = $(this).val();
-        typingTimer = setTimeout(function() {
-            $.ajax({
-                url: "http://127.0.0.1:8000/hotel_info/search?key=" + text,
-                method: 'get',
-                dataType: 'json',
-                success: function(response) {
-                    console.log(response);
-                    let html = '';
-                    html += '<div class="container-fluid pt-4 px-4">';
-                    html += '<div class="bg-secondary text-center rounded p-4">';
-                    html +=
-                        '<div class="d-flex align-items-center justify-content-between mb-4">';
-                    html += '<a href="">Show All</a>';
-                    html += '<div class="d-none d-md-flex ms-4">';
-                    html +=
-                        '<input class="form-control bg-dark border-0 input-search-ajax" type="text" placeholder="Search">';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '<div class="table-responsive ">';
-                    html +=
-                        '<table class="table text-start align-middle table-bordered table-hover mb-0 ">';
-                    html += '<thead>';
-                    html += ' <tr>';
-                    html += '<th width="30%">STT</th>';
-                    html += '<th width="40%">Tên</th>';
-                    html += '<th width="30%">Action</th>';
-                    html += '</tr>';
-                    html += '</thead>';
-                    html += '</tbody class="tbody_123">';
-                    $.each(response, function(key, value) {
-                        html += '<tr class="">';
-                        html += '<td>' + value.id + '</td>';
-                        html += '<td>' + value.title + '</td>';
-                        html += '<td>';
+
+        var text = $(this).val().trim();
+
+        if (text === '') {
+            lastSearchText = '';
+        } else if (text !== lastSearchText) {
+            lastSearchText = text;
+            typingTimer = setTimeout(function() {
+                $.ajax({
+                    url: "http://127.0.0.1:8000/hotel_info/search?key=" + text,
+                    method: 'get',
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response);
+                        let html = '';
+                        html += '<div class="container-fluid pt-4 px-4">';
+                        html += '<div class="bg-secondary text-center rounded p-4">';
                         html +=
-                            '<button class="btn btn-danger edit-btn" data-id="' +
-                            value
-                            .id +
-                            '">Edit</button>';
+                            '<div class="d-flex align-items-center justify-content-between mb-4">';
+                        html += '<a href="">Show All</a>';
+                        html += '<div class="d-none d-md-flex ms-4">';
                         html +=
-                            '  <button class="btn btn-danger delete-btn" data-id="' +
-                            value
-                            .id + '">Delete</button>';
-                        html += '</td>';
+                            '<input class="form-control bg-dark border-0 input-search-ajax" type="text" placeholder="Search">';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '<div class="table-responsive ">';
+                        html +=
+                            '<table class="table text-start align-middle table-bordered table-hover mb-0 ">';
+                        html += '<thead>';
+                        html += ' <tr>';
+                        html += '<th width="30%">STT</th>';
+                        html += '<th width="40%">Tên</th>';
+                        html += '<th width="30%">Action</th>';
                         html += '</tr>';
-                    })
-                    html += '</tbody>';
-                    html += '</table>';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '</div>';
-                    $('.content').html(html);
-                }
-            })
-        }, doneTypingInterval);
+                        html += '</thead>';
+                        html += '</tbody class="tbody_123">';
+                        $.each(response, function(key, value) {
+                            html += '<tr class="">';
+                            html += '<td>' + value.id + '</td>';
+                            html += '<td>' + value.title + '</td>';
+                            html += '<td>';
+                            html +=
+                                '<button class="btn btn-danger edit-btn" data-id="' +
+                                value
+                                .id +
+                                '">Edit</button>';
+                            html +=
+                                '  <button class="btn btn-danger delete-btn" data-id="' +
+                                value
+                                .id + '">Delete</button>';
+                            html += '</td>';
+                            html += '</tr>';
+                        })
+                        html += '</tbody>';
+                        html += '</table>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+                        html += '</div>';
+                        $('.content').html(html);
+                    }
+                })
+            }, doneTypingInterval);
+        }
+
     });
     //xóa
     $(document).on('click', '.delete-btn', function(e) {
@@ -291,69 +300,63 @@
     //thêm
     $(document).on('click', '.add_hotel', function(e) {
         $('#addModal').modal('show');
+        add_hotel();
     })
-    $('#btnSaveadd').on('click', function() {
-        var form = new FormData($('#add')[0]);
-        var formData = $(this).serialize();
-        console.log(formData);
-        let options = {
-            url: 'http://127.0.0.1:8000/hotel_info/store',
-            method: 'post',
-            data: form,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                console.log(response);
-                $('#addModal').modal('hide');
-                getlist();
-                $('#add')[0].reset();
-            },
-        }
-        $.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            }
-        });
-        $.ajax(options);
-    })
-    // sửa
-    $(document).on('click', '.edit-btn', function(e) {
-        var id = $(this).attr('data-id');
-        $.ajax({
-            url: 'http://127.0.0.1:8000/hotel_info/edit/' + id,
-            method: 'get',
-            success: function(response) {
-                console.log(response);
-                $('#title').val(response.title);
-                $('#image').text(response.image);
-                $('#detail').text(response.detail);
-                $('#editModal').modal('show');
-            }
-        });
-        $('#btnSaveedit').on('click', function() {
-            var form = new FormData($('#edit')[0]);
-            form.append('title', $('#title').val());
-            form.append('image', $('#image').val());
-            form.append('detail', $('#detail').val());
+
+    function add_hotel() {
+        $('#btnSaveadd').on('click', function() {
+            var form = new FormData($('#add')[0]);
+            var formData = $(this).serialize();
+            console.log(formData);
             let options = {
-                url: 'http://127.0.0.1:8000/hotel_info/update/' + id,
+                url: 'http://127.0.0.1:8000/hotel_info/store',
                 method: 'post',
                 data: form,
                 contentType: false,
                 processData: false,
                 success: function(response) {
                     console.log(response);
-                    $('#editModal').modal('hide');
+                    $('#addModal').modal('hide');
                     getlist();
-                }
+                    $('#add')[0].reset();
+                },
             }
             $.ajaxSetup({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 }
             });
-
             $.ajax(options);
+        })
+    }
+    // sửa
+    $(document).on('click', '.edit-btn', function(e) {
+    var selectedId = $(this).attr('data-id');
+    $('#edit')[0].reset();
+    $('#editModal').modal('show');
+
+    $('#btnSaveedit').off('click').on('click', function() {
+        var form = new FormData($('#edit')[0]);
+        let options = {
+            url: 'http://127.0.0.1:8000/hotel_info/update/' + selectedId,
+            method: 'post',
+            data: form,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                console.log(response);
+                $('#editModal').modal('hide');
+                getlist();
+            }
+        };
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            }
         });
+
+        $.ajax(options);
     });
+});
 </SCRIPT>

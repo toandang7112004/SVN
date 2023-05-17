@@ -42,10 +42,11 @@ class Article extends Model
     protected $guarded = [
         'id'
     ];
-    public function scopeSearch($query){
-        if(request('key')){
+    public function scopeSearch($query)
+    {
+        if (request('key')) {
             $key = request('key');
-            $query = $query -> where('title','like','%'.$key.'%')->where('id_category', '=', 2);
+            $query = $query->where('id_category', '=', 2)->where('title', 'like', '%' . $key . '%')->get();
         }
     }
 }
